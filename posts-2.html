@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>글 목록 (2/2) · t3b07-hj-club-cmp-2</title>
+  <meta name="description" content="t3b07-hj-club-cmp-2에 올라온 글 목록입니다.">
+  <link rel="canonical" href="https://hapjeong-club-info.program-school.online/posts-2.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+ :root {
+ --bg-primary: #0a0b10;
+ --bg-secondary: #12141a;
+ --bg-tertiary: #1e2129;
+ --text-main: #e6ebf5;
+ --text-muted: #8c93ac;
+ --accent: #d4dce5;
+ --border: #2f3542;
+ --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+ --spacing-unit: 1rem;
+ --container-width: 1200px;
+ }
+
+ * {
+ box-sizing: border-box;
+ margin: 0;
+ padding: 0;
+ }
+
+ body {
+ background-color: var(--bg-primary);
+ color: var(--text-main);
+ font-family: var(--font-family);
+ line-height: 1.6;
+ -webkit-font-smoothing: antialiased;
+ padding-top: 60px; /* Nav height */
+ }
+
+ a {
+ color: var(--accent);
+ text-decoration: none;
+ transition: color 0.2s ease;
+ }
+
+ a:hover {
+ color: #fff;
+ text-decoration: underline;
+ }
+
+ h1, h2, h3, h4 {
+ color: var(--text-main);
+ line-height: 1.2;
+ margin-bottom: 1rem;
+ }
+
+ h1 { font-size: 2.5rem; letter-spacing: -0.02em; }
+ h2 { font-size: 1.75rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; margin-top: 3rem;}
+ h3 { font-size: 1.4rem; color: var(--accent); }
+ p { margin-bottom: 1.5rem; font-size: 1.05rem; color: #dce0e8; }
+
+ .container {
+ max-width: var(--container-width);
+ margin: 0 auto;
+ padding: 0 2rem;
+ }
+
+ /* Navigation System */
+ .nav-bar {
+ position: fixed;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 60px;
+ background-color: rgba(10, 11, 16, 0.95);
+ backdrop-filter: blur(8px);
+ border-bottom: 1px solid var(--border);
+ z-index: 1000;
+ display: flex;
+ align-items: center;
+ }
+
+ .nav-container {
+ max-width: var(--container-width);
+ margin: 0 auto;
+ padding: 0 2rem;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ height: 100%;
+ }
+
+ .brand {
+ font-weight: 700;
+ font-size: 1.25rem;
+ color: var(--text-main);
+ letter-spacing: -0.03em;
+ }
+
+ .nav-links {
+ display: flex;
+ gap: 2rem;
+ }
+
+ .nav-item {
+ font-size: 0.95rem;
+ color: var(--text-muted);
+ transition: all 0.2s ease;
+ cursor: pointer;
+ }
+
+ .nav-item:hover, .nav-item.active {
+ color: var(--accent);
+ }
+
+ /* Layout System */
+ #app {
+ display: flex;
+ min-height: calc(100vh - 60px);
+ }
+
+ .sidebar {
+ width: 280px;
+ background-color: var(--bg-secondary);
+ border-right: 1px solid var(--border);
+ padding: 2rem;
+ flex-shrink: 0;
+ display: none; /* Mobile first hidden, handled by media query usually, but keeping structure */
+ }
+
+ @media (min-width: 768px) {
+ .sidebar { display: block; }
+ }
+
+ .main-content {
+ flex-grow: 1;
+ padding: 2rem;
+ max-width: calc(100% - 280px);
+ }
+
+ @media (max-width: 767px) {
+ .main-content { max-width: 100%; }
+ #app { flex-direction: column; padding-top: 60px;}
+ .sidebar { display: none; } /* Simplified for demo */
+ }
+
+ .article {
+ max-width: 800px;
+ margin: 0 auto;
+ }
+
+ .meta-info {
+ font-size: 0.9rem;
+ color: var(--text-muted);
+ margin-bottom: 2rem;
+ padding-bottom: 1rem;
+ border-bottom: 1px solid var(--border);
+ display: flex;
+ gap: 1.5rem;
+ }
+
+ .meta-tag {
+ background-color: var(--bg-tertiary);
+ padding: 0.2rem 0.6rem;
+ border-radius: 4px;
+ font-size: 0.8rem;
+ color: var(--accent);
+ border: 1px solid var(--border);
+ }
+
+ .content-block {
+ margin-bottom: 3rem;
+ }
+
+ .highlight-box {
+ background-color: var(--bg-tertiary);
+ border-left: 4px solid var(--accent);
+ padding: 1.5rem;
+ margin: 2rem 0;
+ border-radius: 0 8px 8px 0;
+ }
+
+ .highlight-title {
+ font-weight: 700;
+ color: var(--text-main);
+ display: block;
+ margin-bottom: 0.5rem;
+ }
+
+ /* Responsive Nav Toggle (Simplified) */
+ .menu-toggle {
+ display: none;
+ background: transparent;
+ border: 1px solid var(--border);
+ color: var(--text-main);
+ padding: 0.4rem 0.8rem;
+ cursor: pointer;
+ font-size: 1.2rem;
+ }
+
+ @media (max-width: 767px) {
+ .menu-toggle { display: block; }
+ .nav-links {
+ position: fixed;
+ top: 60px;
+ left: 0;
+ width: 100%;
+ background-color: var(--bg-secondary);
+ flex-direction: column;
+ padding: 2rem;
+ gap: 1rem;
+ transform: translateY(-150%);
+ transition: transform 0.3s ease;
+ }
+ .nav-links.active { transform: translateY(0); }
+ }
+
+ /* Pattern: nav-present, responsive-768 */
+ </style>
+  <meta property="og:title" content="글 목록 (2/2) · t3b07-hj-club-cmp-2">
+  <meta property="og:description" content="t3b07-hj-club-cmp-2에 올라온 글 목록입니다.">
+  <meta property="og:url" content="https://hapjeong-club-info.program-school.online/posts-2.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+</head>
+<body>
+  <div class="container">
+    <header>
+ <h1>합정 클럽 비교 — 초행자를 위한 조건별 선택 안내</h1>
+ <div class="meta-info">
+ <span class="meta-tag">Region: 합정</span>
+ <span class="meta-tag">Type: Nightlife Guide</span>
+ <span class="meta-tag">Updated: 2023.10.27</span>
+ </div>
+ </header>
+    <main>
+      <h1>글 목록</h1>
+      <p>전체 38개 · 2/2 페이지</p>
+      <ul class="post-list">
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260722-0057.html">합정 클럽 비교 분석하며 살펴보는 마곡 유흥 추천정보 가이드</a>
+        <p class="post-item__summary">주말 저녁 예상치 못한 인파로 인해 이동 경로를 급하게 수정해야 하는 상황을 겪어본 적이 있을 것입니다. 합정 클럽 비교 검색을 통해 특정 지역의 밤문화를 탐색하던 이들이 마곡으로 눈길을 돌리는 사</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260722-0058.html">합정 클럽 비교 논란과 무관한 합정 노래방 추천정보 제대로 찾기</a>
+        <p class="post-item__summary">밤이 늦었다고 해서 모든 시설이 동일한 분위기일 것이라 오해하는 경우가 많습니다. 합정 클럽 비교 결과와 노래방의 서비스는 성격 자체가 다르므로 각각의 매력을 구분해서 접근해야 합니다. 익숙한 장소</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260722-0059.html">합정 클럽 비교 분석하며 찾아보는 연남 클럽 추천정보 완벽 활용법</a>
+        <p class="post-item__summary">멋진 인테리어와 수준 높은 음악, 그리고 적절한 인원 구성이 모두 갖춰진 곳을 찾기는 쉽지 않습니다. 합정 클럽 비교를 통해 장소의 성격을 파악했던 분들이라면 이제 연남동의 독특한 클럽 문화를 경험</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260722-0060.html">합정 클럽 비교 기준에서 파생된 합정 셔츠룸 추천정보 선택 기준</a>
+        <p class="post-item__summary">당신은 과연 어떤 기준으로 밤문화 공간을 선택하고 계신가요? 합정 클럽 비교 분석을 해본 경험이 있는 분들이라면 시설의 청결도와 서비스 마인드가 얼마나 중요한지 잘 아실 것입니다. 셔츠룸이라는 독특</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260722-0061.html">합정 클럽 비교 분석을 통해 본 공덕 가라오케 추천정보 활용법</a>
+        <p class="post-item__summary">주말 저녁 유흥 문화를 즐기기 위해 합정 클럽 비교 데이터를 살피는 분들이 많습니다. 하지만 보다 차분하고 집중된 분위기를 선호한다면 인근 지역의 서비스를 탐색하는 것이 합리적인 선택이 될 수 있습</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260722-0062.html">합정 클럽 비교 관점에서 보는 상수 마사지 추천정보 선택 기준</a>
+        <p class="post-item__summary">북적이는 번화가에서 합정 클럽 비교 정보를 찾는 분들 중에는 피로를 풀기 위해 마사지를 고민하는 사례가 빈번합니다. 활기찬 에너지를 소비한 뒤에는 몸의 긴장을 완화해주는 휴식이 필수적이기 때문입니다</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260722-0063.html">합정 클럽 비교를 하다가 망원 노래방 추천정보 예약 시 실패하는 이유</a>
+        <p class="post-item__summary">많은 이들이 주말 계획을 세울 때 합정 클럽 비교 정보와 노래방 예약을 동시에 고려하곤 합니다. 하지만 노래방 예약 절차를 간과하여 현장에서 곤란을 겪는 경우가 의외로 많습니다. 미리 예약 시스템을</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260722-0064.html">홍대 노래방 추천정보 찾기 전 합정 클럽 비교 및 체크리스트 확인</a>
+        <p class="post-item__summary">홍대와 합정 인근에서 즐거운 시간을 보내려는 분들은 대개 합정 클럽 비교 정보를 살피며 동선을 계획합니다. 하지만 클럽의 화려함보다 노래방의 오붓한 분위기를 선호한다면 이동 편의성을 중심으로 장소를</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260722-0065.html">합정 클럽 비교 분석으로 확인하는 공덕 셔츠룸 추천정보 정리</a>
+        <p class="post-item__summary">주말 저녁 번화가에서 기대했던 분위기를 찾지 못해 발길을 돌린 경험이 있다면 장소 선택의 중요성을 실감했을 것입니다. 단순한 인지도만 믿고 방문했다가 예상치 못한 소음이나 복잡한 인파로 고생하는 경</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260722-0066.html">합정 클럽 비교 후 살펴보는 연남 유흥 추천정보와 방문 팁</a>
+        <p class="post-item__summary">흔히 유흥을 즐기려면 무조건 밤이 깊어야 한다거나, 화려한 조명이 가득한 곳이어야 한다는 고정관념이 존재합니다. 하지만 이러한 오해는 사실 본인이 원하는 분위기의 장소를 찾는 데 큰 걸림돌이 될 뿐</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/guide-001-1k0a0hl.html">클럽 해결 방법 총정리</a>
+        <p class="post-item__summary">백링크 지시: 본문 내러티브 속에서 다음 링크를 자연스러운 발견으로 녹여라: 추천 바로가기</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/juice-1.html">합정 클럽 비교</a>
+        <p class="post-item__summary">합정 지역에는 다양한 클럽이 모여 있어 방문 전 정보 수집이 중요한 장소입니다. 각 클럽은 내부 분위기, 운영하는 음악의 방향, 그리고 제공하는 서비스의 종류에서 차이가 있습니다. 이런 차이를 파악</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/juice-2.html">합정 클럽 비교</a>
+        <p class="post-item__summary">합정 지역에 위치한 클럽은 다양한 형태로 운영되고 있으며, 이용하는 목적과 분위기에 따라 선택지가 달라질 수 있습니다. 클럽 비교를 할 때는 먼저 해당 업소가 어떤 스타일로 운영되는지 파악하는 것이</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/normal-1.html">합정 클럽 비교 안내</a>
+        <p class="post-item__summary">합정 지역의 클럽을 비교할 때는 다양한 시설과 서비스 기준을 꼼꼼히 확인해야 합니다. 각 업소의 분위기, 안전 관리 체계, 운영 원칙 등 실제로 이용자가 확인할 수 있는 정보 위주로 검토하는 것이 </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/normal-2.html">normal 2</a>
+        <p class="post-item__summary">합정 클럽은 다양한 업소가 존재하며, 각 클럽마다의 특징과 장점이 있습니다. 합정 클럽 비교를 통해 각 클럽의 특징과 서비스를 알아볼 수 있습니다.</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/normal-3.html">합정 클럽 비교 안내</a>
+        <p class="post-item__summary">합정 지역의 클럽 정보는 다양한 특성과 운영 방식을 고려할 때 비교가 필요합니다. 각 시설은 고유한 분위기, 서비스 범위, 공간 구성을 갖추고 있어 방문 전 비교 과정은 의미 있습니다. 비교 시 주</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/qa-001-1kzy1wx.html">합정 클럽 비교 처음 알아볼 때 실제로 많이 묻는 질문 5가지</a>
+        <p class="post-item__summary">아, 진짜 2014년 하반기, 블레이드 러너 파이널 컷이 공개되자마자 리들리 스콧 감독은 그 영화를 재판시켰다. 그 이유는 단순히 &quot;영화의 엔딩 해석 논쟁&quot; 때문이 아니라, 더 깊고 진귀한 맥락 속</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/qa-002-1k0a0hl.html">합정 클럽 비교 처음 알아볼 때 실제로 많이 묻는 질문 5가지</a>
+        <p class="post-item__summary">##### 근거 방식: 잘못된 선택의 신호와 중단 기준을 포함##### 도입: 일반적인 조언을 부정한 뒤 적용 조건을 설명</p>
+      </li>
+      </ul>
+    <nav class="pager">
+      <a class="pager__link" href="posts.html">1</a>
+      <span class="pager__current">2</span>
+    </nav>
+    </main>
+  </div>
+</body>
+</html>
